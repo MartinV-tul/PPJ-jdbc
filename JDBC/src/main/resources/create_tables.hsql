@@ -1,0 +1,16 @@
+-- tables
+-- Table: Country
+CREATE TABLE Country (
+    CountryName varchar(20) NOT NULL,
+    CONSTRAINT Country_pk PRIMARY KEY (CountryName)
+);
+
+-- Table: Town
+CREATE TABLE Town (
+    TownName varchar(20) NOT NULL,
+    CountryName varchar(20) NOT NULL,
+    CONSTRAINT Town_pk PRIMARY KEY (CountryName,TownName)
+);
+
+-- foreign keys
+ALTER TABLE Town ADD FOREIGN KEY (CountryName) REFERENCES Country (CountryName);
