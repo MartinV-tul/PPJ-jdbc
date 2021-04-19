@@ -32,22 +32,18 @@ public class CountryDao {
         return jdbc.query("select * from Country", BeanPropertyRowMapper.newInstance(Country.class));
     }
 
+    @Transactional
     public boolean delete(String countryName) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("CountryName",countryName);
 
+        jdbc.update("delete from Town where Town.CountryName=:CountryName", params);
         return jdbc.update("delete from Country where CountryName=:CountryName", params) == 1;
     }
 
-    public boolean delete(Country country) {
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("CountryName",country.getCountryName());
-
-        return jdbc.update("delete from Country where CountryName=:CountryName", params) == 1;
-    }
-
+    @Transactional
     public void deleteCountries() {
-        jdbc.getJdbcOperations().execute("DELETE FROM Country");
         jdbc.getJdbcOperations().execute("DELETE FROM Town");
+        jdbc.getJdbcOperations().execute("DELETE FROM Country");
     }
 }

@@ -69,15 +69,15 @@ public class Main {
         System.out.println(countries);
         System.out.println(towns);
 
-        townDao.delete(prague);
-        townDao.delete(bratislava);
+        townDao.delete(prague.getName(),prague.getCountryName());
+        townDao.delete(bratislava.getName(),bratislava.getCountryName());
 
         countries = countryDao.getAllCountries();
         towns = townDao.getTowns();
         System.out.println(countries);
         System.out.println(towns);
 
-        countryDao.delete(slovakia);
+        countryDao.delete(slovakia.getCountryName());
 
         countries = countryDao.getAllCountries();
         towns = townDao.getTowns();

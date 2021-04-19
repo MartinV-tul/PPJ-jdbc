@@ -47,21 +47,13 @@ public class TownDao {
         return jdbc.update("delete from Town where TownName=:TownName and CountryName=:CountryName", params) == 1;
     }
 
-    public boolean delete(Town town) {
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("TownName",town.getName());
-        params.addValue("CountryName",town.getCountryName());
-
-        return jdbc.update("delete from Town where TownName=:TownName and CountryName=:CountryName", params) == 1;
-    }
-
     public Town getTown(String townName, String countryName) {
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("TownName",townName);
         params.addValue("CountryName",countryName);
 
-        return jdbc.queryForObject("select * from Town, Country where Town.CountryName=Country.CountryName and Town.TownName=:TownName and Town.CountryName=:CountryName", params,
+        return jdbc.queryForObject("select * from Town where Town.TownName=:TownName and Town.CountryName=:CountryName", params,
                 new RowMapper<Town>() {
 
                     public Town mapRow(ResultSet rs, int rowNum)
